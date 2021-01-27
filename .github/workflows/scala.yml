@@ -25,6 +25,6 @@ jobs:
       env:
         AWS_ACCESS_KEY: ${{ secrets.MY_AWS_ACCESS_KEY }}
         AWS_SECRET_KEY: ${{ secrets.MY_AWS_SECRET_KEY }}
-      #run: bin/build.sh $AWS_ACCESS_KEY $AWS_SECRET_KEY  
+      #run: bin/build.sh $AWS_ACCESS_KEY $AWS_SECRET_KEY  seds
       run: echo $AWS_ACCESS_KEY
     
