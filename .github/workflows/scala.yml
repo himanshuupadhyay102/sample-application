@@ -30,4 +30,4 @@ jobs:
     - name: repo name
       run: echo "$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}') "
     - name: echo remote url
-      run:  echo"$(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY"`)"
+      run:  echo"$(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git`)"
