@@ -30,6 +30,6 @@ jobs:
     - name: repo name
       run: echo "$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')  "
     - name: echo remote url
-      run:  echo"$(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git`| sed -e "s/:refs//")"
+      run:  echo"$(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git`| sed 's/.$//')"
     - name: echo kuch bhi
       run:  echo" $GITHUB_REPOSITORY" | sed -e "s/ // _/"
