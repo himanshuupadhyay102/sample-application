@@ -32,4 +32,4 @@ jobs:
     - name: echo remote url
       run:  echo"$(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git`)"
     - name: echo kuch bhi
-      run:  echo" $GITHUB_REPOSITORY" | sed 's/ // _/' 
+      run:  echo" $GITHUB_REPOSITORY" | sed -e "s/ // _/"
