@@ -5,7 +5,7 @@ env:
 on:
   push:
     branches: 
-      - master
+      - githubaction
   pull_request:
     branches: 
       - master
@@ -27,4 +27,5 @@ jobs:
         AWS_SECRET_KEY: ${{ secrets.MY_AWS_SECRET_KEY }}
       #run: bin/build.sh $AWS_ACCESS_KEY $AWS_SECRET_KEY  seds
       run: echo $AWS_ACCESS_KEY
-    
+    - name: repo name
+      run: $(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
