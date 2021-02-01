@@ -28,7 +28,7 @@ jobs:
       #run: bin/build.sh $AWS_ACCESS_KEY $AWS_SECRET_KEY  seds
       run: echo $AWS_ACCESS_KEY
     - name: repo name
-      run: echo "(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')  "
+      run: echo "(`echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}'`)  "
     - name: echo remote url
       run:  echo"(`echo "$GITHUB_SERVER_URL"/"$GITHUB_REPOSITORY".git`)"
     - name: echo kuch bhi
