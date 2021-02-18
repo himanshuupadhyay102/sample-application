@@ -1,0 +1,17 @@
+name: Environment Pipeline
+
+on:
+  push:
+    branches: [ githubaction ]
+  pull_request:
+    branches: [ githubaction ]
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile
+        run: echo Hello, world!
