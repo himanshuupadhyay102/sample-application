@@ -55,4 +55,4 @@ jobs:
     - name: Confirm Jira Build Output
       if: success()
       run: |
-        echo "Jira Upload Build Info response: ${{ steps.push_build_info_to_jira.outputs.response }}"
+        echo "Jira  Upload Build Info response: ${{ steps.push_build_info_to_jira.outputs.response }}"
