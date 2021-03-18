@@ -63,6 +63,7 @@ jobs:
         commit-id: '${{ github.sha }}'
         repo-url: '${{ github.event.repository.url }}'
         build-ref-url: '${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}'
+    
     - name: Push DEPLOYMENT Info to Jira
       if: steps.jira_keys.outputs.jira-keys != ''
       id: push_build_info_to_jira
