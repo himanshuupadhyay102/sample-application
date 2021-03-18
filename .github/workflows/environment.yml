@@ -49,7 +49,7 @@ jobs:
       with:
           client-id: '${{ secrets.CLIENT_ID }}'
           client-secret: '${{ secrets.CLIENT_SECRET }}'
-          cloud-instance-base-url:  'https://example.atlassian.net'
+          cloud-instance-base-url:  'https://himanshuaccount.atlassian.net'
           issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
           
     - name: Confirm Jira Build Output
