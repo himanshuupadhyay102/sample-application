@@ -28,7 +28,7 @@ jobs:
       - name: Deploy
         run: echo I am deploying!
   JIRA:
-    name: Deploy to JIRA
+    name: Build & Deployments info in JIRA
     needs: [Build]
     runs-on: ubuntu-latest
     steps:
@@ -42,8 +42,8 @@ jobs:
         parse-all-commits: ${{ github.event_name == 'push' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
     - name: Push Build info to JIRA
-      
       if: steps.jira_keys.outputs.jira-keys != ''
      #id: push_build_info_to_jira
       uses: HighwayThree/jira-upload-build-info@master
@@ -51,18 +51,18 @@ jobs:
         cloud-instance-base-url:  'https://himanshuaccount.atlassian.net'
         client-id: '${{ secrets.CLIENT_ID }}'
         client-secret: '${{ secrets.CLIENT_SECRET }}'
-        pipeline-id: '${{ github.repository }} ${{ github.workflow }}'
-        build-number: ${{ github.run_number }}
-        build-display-name: 'Workflow: ${{ github.workflow }} (#${{ github.run_number }})'
+        issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
+        #pipeline-id: '${{ github.repository }} ${{ github.workflow }}'
+        #build-number: ${{ github.run_number }}
+        #build-display-name: 'Workflow: ${{ github.workflow }} (#${{ github.run_number }})'
         #build-state: "${{ env.BUILD_STATE }}"
         build-state: successful
-        build-url: '${{github.event.repository.url}}/actions/runs/${{github.run_id}}'
-        update-sequence-number: '${{ github.run_id }}'
-        last-updated: '${{github.event.head_commit.timestamp}}'
-        issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
-        commit-id: '${{ github.sha }}'
-        repo-url: '${{ github.event.repository.url }}'
-        build-ref-url: '${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}'
+        #build-url: '${{github.event.repository.url}}/actions/runs/${{github.run_id}}'
+        #update-sequence-number: '${{ github.run_id }}'
+        #last-updated: '${{github.event.head_commit.timestamp}}'
+        #commit-id: '${{ github.sha }}'
+        #repo-url: '${{ github.event.repository.url }}'
+        #build-ref-url: '${{ github.event.repository.url }}/actions/runs/${{ github.run_id }}'
     
     - name: Push DEPLOYMENT Info to Jira
       if: steps.jira_keys.outputs.jira-keys != ''
