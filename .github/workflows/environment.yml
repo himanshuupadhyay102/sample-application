@@ -2,7 +2,7 @@ name: Environment Pipeline
 
 on:
   push:
-    branches: [ master ]
+    branches: [ githubaction ]
   pull_request:
     branches: [ githubaction ]
   workflow_dispatch:
