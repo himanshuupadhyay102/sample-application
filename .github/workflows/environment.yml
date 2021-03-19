@@ -68,7 +68,7 @@ jobs:
     - name: Push DEPLOYMENT Info to Jira
       if: steps.jira_keys.outputs.jira-keys != ''
       id: push_build_info_to_jira
-      uses: HighwayThree/jira-upload-deployment-info@master
+      uses: himanshuupadhyay102/jira-upload-deployment-info@master
       with:
           client-id: '${{ secrets.CLIENT_ID }}'
           client-secret: '${{ secrets.CLIENT_SECRET }}'
