@@ -36,7 +36,7 @@ jobs:
     - name: Parse Jira Keys from Commit
       id: jira_keys
       if: always()
-      uses: HighwayThree/jira-extract-issue-keys@master
+      uses: ./.github/actions/jira-extract-issue-keys
       with:
         is-pull-request: ${{ github.event_name == 'pull_request' }}
         parse-all-commits: ${{ github.event_name == 'push' }}
