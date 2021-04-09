@@ -57,7 +57,6 @@ jobs:
     - if: matrix.language == 'java' 
       name: Build Java
       run: |
-        make bootstrap
         make release
 
     # ℹ️ Command-line programs to run using the OS shell.
