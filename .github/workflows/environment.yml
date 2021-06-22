@@ -1,11 +1,11 @@
 name: Environment Pipeline
 
 on:
-  push:
-    branches: [ githubaction ]
-  pull_request:
-    branches: [ githubaction ]
-  workflow_dispatch:
+  #push:
+   # branches: [ githubaction ]
+  #pull_request:
+   # branches: [ githubaction ]
+  #workflow_dispatch:
 env:
   GITHUB_RUN_ID: ${{secrets.GITHUB_RUN_ID}}
   GITHUB_RUN_NUMBER: ${{secrets.GITHUB_RUN_NUMBER}}
