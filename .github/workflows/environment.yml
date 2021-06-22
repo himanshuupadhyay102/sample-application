@@ -1,0 +1,77 @@
+name: Environment Pipeline
+
+on:
+  #push:
+   # branches: [ githubaction ]
+  #pull_request:
+   # branches: [ githubaction ]
+  #workflow_dispatch:
+env:
+  GITHUB_RUN_ID: ${{secrets.GITHUB_RUN_ID}}
+  GITHUB_RUN_NUMBER: ${{secrets.GITHUB_RUN_NUMBER}}
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile
+        run: echo Hello, world
+  DeployProd:
+    name: Deploy to Production 
+    needs: [Build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Production
+      #url: 'http://www.myapp.com'
+    steps:
+      - name: Deploy
+        run: echo I am deploying!
+  JIRA:
+    name: Build & Deployments info in JIRA
+    needs: [Build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Parse Jira Keys from Commit
+      id: jira_keys
+      if: always()
+      uses: himanshuupadhyay102/jira-keys@master
+      with:
+        is-pull-request: ${{ github.event_name == 'pull_request' }}
+        parse-all-commits: ${{ github.event_name == 'push' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Push Build info to JIRA
+      if: steps.jira_keys.outputs.jira-keys != ''
+      uses: himanshuupadhyay102/jira-upload-build-info@master
+      with:
+        cloud-instance-base-url:  'https://himanshuaccount.atlassian.net'
+        client-id: '${{ secrets.CLIENT_ID }}'
+        client-secret: '${{ secrets.CLIENT_SECRET }}'
+        issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
+        build-state: successful
+    
+    - name: Push DEPLOYMENT Info to Jira
+      if: steps.jira_keys.outputs.jira-keys != ''
+      id: push_build_info_to_jira
+      uses: himanshuupadhyay102/jira-upload-deployment-info@master
+      with:
+          client-id: '${{ secrets.CLIENT_ID }}'
+          client-secret: '${{ secrets.CLIENT_SECRET }}'
+          cloud-instance-base-url:  'https://himanshuaccount.atlassian.net'
+          issue-keys: "${{ steps.jira_keys.outputs.jira-keys }}"
+          display-name: "Deployment Number 1"
+          description: "Test Deployment"
+          last-updated: '${{github.event.head_commit.timestamp}}'
+          label: 'Test Deployment Label'
+          state: successful
+          environment-id: 'Test'
+          environment-display-name: 'Test'
+          environment-type: 'testing'
+          
+    - name: Confirm Jira Build Output
+      if: success()
+      run: |
+        echo "Jira  Upload Build Info response: ${{ steps.push_build_info_to_jira.outputs.response }}"
