@@ -3,12 +3,12 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME : "github-actions-10"
   AWS_REGION_NAME           : "us-east-2"
 on:
-#  push:
- #   branches: 
-  #    - githubaction
-  pull_request:
+  push:
     branches: 
-      - master
+      - githubaction
+  #pull_request:
+   # branches: 
+    #  - master
 
 jobs:
   build:
