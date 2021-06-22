@@ -8,4 +8,4 @@ on:
         default: "HELLO WORLD!"
 jobs:
   my-job:
-  caption:${{ github.event.inputs.caption }}
+   caption:${{ github.event.inputs.caption }} 
